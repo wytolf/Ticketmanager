@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVZ Ticketshop</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.31"></script>
+    <script src="js/formValidation.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <header class="w3-container w3-indigo">
+        <h1 class="w3-margin-left">EVZ Ticketshop</h1>
+        <nav class="w3-bar">
+            <a href="#home" class="w3-bar-item w3-button w3-mobile">
+                Information
+            </a>
+            <a href="#tickets" class="w3-bar-item w3-button w3-mobile">
+                Tickets
+            </a>
+            <a href="#kaufen" class="w3-bar-item w3-button w3-mobile">
+                Ticket kaufen
+            </a>
+        </nav>
+    </header>
+    <main class="w3-container">
+        <a name="home"></a>
+        <section class="w3-card w3-margin w3-border w3-container w3-row">
+            <h2>Was ist die EVZ Ticketshop Seite?</h2>
+            <p>
+                Der EVZ Ticketshop stellt verschiedene Tickets für Heim- und Auswärtsspiele zum kauf zur
+                Verfügung.
+            </p>
+            <p>
+                Der EVZ Ticketshop ist in drei Abschnitte unterteilt. Der erste Teil (dieser Teil)
+                beinhaltet Informationen zur Webseite, der Zweite listet die Tiketoptionen auf.
+                Im dritten Teil kann der Benutzer eine bestimmte Anzahl von Tickets einer Kategorie kaufen.
+            </p>
+            <p>
+                Das Formular zeigt Ihnen beim ausfüllen live ob die eingegebenen Parameter gültig sind.
+                Die Anzahl Tickets wird Ihnen unter dem Formular symbolisiert. Wenn sie die Rechnung
+                bestellen,
+                werden Ihnen pro ausgegebenen CHF ein Treuepunkt dazugerechnet.
+                Diese sind cool. Weisen sie am Spieltag die erzeugte Rechnung an der Kasse auf.
+            </p>
+            <img src="img/arena.PNG" class="w3-image w3-margin-bottom w3-round">
+        </section>
+
+        <section class="flexcontainer">
+            <a name="tickets"></a>
+            <div class="w3-card w3-border w3-margin w3-hover-grayscale w3-mobile flexitem">
+                <div class="w3-center">
+                    <img src="img/stehplatz.jpg" class="w3-image w3-round w3-margin fleximg">
+                    <div class="w3-margin">
+                        <span class="w3-large">Stehplatzticket</span><br>
+                        <span>30.00 CHF</span>
+                    </div>
+                </div>
+            </div>
+            <div class="w3-card w3-border w3-margin w3-hover-grayscale w3-mobile flexitem">
+                <div class="w3-center">
+                    <img src="img/publicViewing.jpg" class="w3-image w3-round w3-margin fleximg">
+                    <div class="w3-margin">
+                        <span class="w3-large">Public Viewing</span><br>
+                        <span>8.50 CHF</span>
+                    </div>
+                </div>
+            </div>
+            <div class="w3-card w3-border w3-margin w3-hover-grayscale w3-mobile flexitem">
+                <div class="w3-center">
+                    <img src="img/sitzplatz.jpg" class="w3-image w3-round w3-margin fleximg">
+                    <div class="w3-margin">
+                        <span class="w3-large">Sitzplatz</span><br>
+                        <span>85.00 CHF</span>
+                    </div>
+                </div>
+            </div>
+            <div class="w3-card w3-border w3-margin w3-hover-grayscale w3-mobile flexitem">
+                <div class="w3-center">
+                    <img src="img/loge.jpg" class="w3-image w3-round w3-margin fleximg">
+                    <div class="w3-margin">
+                        <span class="w3-large">Logenplatz</span><br>
+                        <span>199.95 CHF</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="w3-card w3-border w3-margin w3-container w3-row">
+            <a name="kaufen"></a>
+            <h2 class="formtittel">Ticket kaufen</h2>
+            <form onsubmit="return validateForm()" id="ticketKaufen" action="ticketKaufen.php"
+                class="w3-container w3-margin" method="POST">
+                <fieldset>
+                    <legend><strong>Ticket Angaben</strong></legend>
+                    <p>Welches Ticket möchten Sie kaufen?</p>
+
+                    <label for="kategorie">Ticket:</label>
+                    <select @select="checkKategorie()" name="kategorie" id="kategorie" class="w3-select"
+                        v-model="kategorie">
+                        <option value="" disabled selected>Kategorie wählen</option>
+                        <option value="30.0">Stehplatz</option>
+                        <option value="8.5">Public Vieving</option>
+                        <option value="85.0">Sitzplatz</option>
+                        <option value="199.95">Logenplatz</option>
+                    </select>
+                    <p class="w3-text-red">{{ kategorieError }}</p>
+
+                    <label for="anzahl">Anzahl:</label>
+                    <input @input="checkAnzahl()" type="number" id="anzahl" name="anzahl" class="w3-input"
+                        v-model="anzahl">
+                    <p class="w3-text-red">{{ anzahlError }}</p>
+
+                    <label for="datum">Datum:</label>
+                    <input @input="checkDatum()" type="date" id="datum" name="datum" class="w3-input w3-date"
+                        v-model="datum">
+                    <p class="w3-text-red">{{ datumError }}</p>
+
+                    <p><strong>Gesamtpreis = {{ berechneGesamtpreis() }} CHF</strong></p>
+                </fieldset>
+
+                <fieldset>
+                    <legend><strong>Persönliche Angaben</strong></legend>
+                    <p>Wer sind sie?</p>
+
+                    <label for="vorname">Vorname:</label>
+                    <input @input="checkVorname()" id="vorname" name="vorname" class="w3-input" v-model="vorname">
+                    <p class="w3-text-red">{{ vornameError }}</p>
+                    <label for="nachname">Nachname:</label>
+                    <input @input="checkNachname()" id="nachname" name="nachname" class="w3-input" v-model="nachname">
+                    <p class="w3-text-red">{{ nachnameError }}</p>
+                    <label for="adresse">Adresse:</label>
+                    <input @input="checkAdresse()" id="adresse" name="adresse" class="w3-input" v-model="adresse">
+                    <p class="w3-text-red">{{ adresseError }}</p>
+                    <label for="ort">Ort / PLZ:</label>
+                    <input @input="checkOrt()" id="ort" name="ort" class="w3-input" v-model="ort">
+                    <p class="w3-text-red">{{ortError }}</p>
+                </fieldset>
+
+                <input id="submit" type="submit" class="w3-btn w3-indigo w3-margin-top w3-right"
+                    value="Rechnung anzeigen">
+                <p class="w3-red" id="submitError"></p>
+            </form>
+        </section>
+        <section class="w3-card w3-border w3-margin w3-row w3-center">
+            <canvas id="canvas" width="1250" height="75" class="w3-canvas w3-center w3-margin-top"></canvas>
+        </section>
+    </main>
+    <footer class="w3-container w3-indigo">
+        <div class="w3-bar">
+            <div class="w3-bar-item">MEP WEBT HS 2022</div>
+            <div class="w3-bar-item w3-right">Matthias Brunner</div>
+        </div>
+    </footer>
+</body>
+
+</html>
+<script src="js/vue_logic.js"></script>

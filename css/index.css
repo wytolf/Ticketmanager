@@ -1,0 +1,38 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+    background-color: rgba(17, 105, 221, 0.245);
+}
+
+.flexcontainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+
+.flexitem {
+    flex-grow: 1;
+}
+
+.fleximg {
+    width: 300px;
+}
+
+.formtittel {
+    padding-left: 30px;
+}
+
+.w3-card {
+    background-color: rgb(255, 255, 255);
+}
+
+p {
+    white-space: pre-line;
+}
+
+#canvas {
+    width: 100%;
+}
