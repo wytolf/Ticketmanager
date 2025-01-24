@@ -104,18 +104,18 @@ function drawTicketSymbol(x, y) {
     c.fillStyle = "gold";
     c.strokeStyle = "silver";
     c.fillRect(x + 2, y + 2, 42, 62);
-    //Schläger 1    
+    //Stick 1
     c.moveTo(x + 2, y + 2);
     c.lineTo(x + 32, y + 62);
     c.lineTo(x + 42, y + 62);
     //Puck
     c.moveTo(x + 27, y + 62);
     c.lineTo(x + 17, y + 62);
-    //Schläger 2
+    //Stick 2
     c.moveTo(x + 2, y + 62);
     c.lineTo(x + 12, y + 62);
     c.lineTo(x + 42, y + 2);
-    //Rahmen
+    //Border
     c.moveTo(x, y);
     c.lineTo(x, y + 65);
     c.lineTo(x + 45, y + 65);
